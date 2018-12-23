@@ -38,7 +38,31 @@ class MarkdownRecipe:
     @property
     def markdown(self):
         """Return generated markdown for the recipe."""
+        return '\n'.join((
+            self.name,
+            '',
+            self.style,
+            '',
+        ))
+
+    @property
+    def name(self):
+        """Return markdown for the recipe's name."""
         return markdown.setext_heading(self.recipe.name, 1)
+
+    @property
+    def style(self):
+        """Return markdown for the recipe's style."""
+        return '\n'.join((
+            markdown.setext_heading('Style', 2),
+            '{}: {}'.format(markdown.strong('Style guide'),
+                            self.recipe.style.style_guide),
+            '{}: {}{}'.format(markdown.strong('Style category'),
+                              int(self.recipe.style.category_number),
+                              self.recipe.style.style_letter),
+            '{}: {}'.format(markdown.strong('Style name'),
+                            self.recipe.style.name)
+        ))
 
 
 def load_file(path):

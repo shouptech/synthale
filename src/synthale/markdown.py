@@ -17,3 +17,13 @@ def setext_heading(text, level):
         hchar = '-'
 
     return '{}\n{}'.format(text.strip(), hchar * len(text.strip()))
+
+
+def emphasis(text):
+    """Wrap text with asterisks."""
+    return '*{}*'.format(text)
+
+
+def strong(text):
+    """Wrap text with double asterisks."""
+    return '**{}**'.format(text)

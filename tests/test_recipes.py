@@ -36,12 +36,30 @@ def test_markdown_recipe_filename():
     assert recipe.filename == 'validate_this.md'
 
 
-def test_markdown_recipe_markdown():
-    """Validate the generated markdown."""
+def test_markdown_recipe_name():
+    """Validate generated name for recipe."""
     xml_recipe = pybeerxml.Recipe()
     xml_recipe.name = 'Foobar'
     recipe = MarkdownRecipe(xml_recipe)
-    assert recipe.markdown == 'Foobar\n======'
+    assert recipe.name == 'Foobar\n======'
+
+
+def test_markdown_recipe_style():
+    """Validate generated style for recipe."""
+    xml_recipe = pybeerxml.Recipe()
+    xml_recipe.style = pybeerxml.style.Style()
+    xml_recipe.style.style_guide = 'BJCP'
+    xml_recipe.style.style_letter = 'E'
+    xml_recipe.style.category_number = 13
+    xml_recipe.style.name = 'American Stout'
+    recipe = MarkdownRecipe(xml_recipe)
+    assert recipe.style == (
+        'Style\n'
+        '-----\n'
+        '**Style guide**: BJCP\n'
+        '**Style category**: 13E\n'
+        '**Style name**: American Stout'
+    )
 
 
 def test_write_recipes(md_recipes, tmpdir):
