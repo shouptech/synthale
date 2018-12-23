@@ -36,5 +36,7 @@ def test_markdown_recipe_filename():
 
 def test_markdown_recipe_markdown():
     """Validate the generated markdown."""
-    recipe = MarkdownRecipe(None)
-    assert recipe.markdown == ''
+    xml_recipe = pybeerxml.Recipe()
+    xml_recipe.name = 'Foobar'
+    recipe = MarkdownRecipe(xml_recipe)
+    assert recipe.markdown == 'Foobar\n======'

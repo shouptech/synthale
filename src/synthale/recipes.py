@@ -6,6 +6,8 @@ import sys
 
 import pybeerxml
 
+from synthale import markdown
+
 
 class MarkdownRecipe:
     """A recipe in markdown form."""
@@ -36,7 +38,7 @@ class MarkdownRecipe:
     @property
     def markdown(self):
         """Return generated markdown for the recipe."""
-        return ''
+        return markdown.setext_heading(self.recipe.name, 1)
 
 
 def load_file(path):
