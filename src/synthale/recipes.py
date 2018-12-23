@@ -70,3 +70,14 @@ def load_all_files(path):
             recipes.extend(load_file(os.path.join(path, name)))
 
     return recipes
+
+
+def write_recipes(recipes, output_path):
+    """Write `recipes` to `output_path`.
+
+    `recipes` is a list of MarkdownRecipe objects. `output_path` is a directory
+    to write the recipes to.
+    """
+    for recipe in recipes:
+        with open(os.path.join(output_path, recipe.filename), 'w') as f:
+            f.write(recipe.markdown)

@@ -2,7 +2,9 @@
 
 import pybeerxml
 
-from synthale.recipes import MarkdownRecipe, load_file, load_all_files
+from synthale.recipes import (
+    MarkdownRecipe, load_file, load_all_files, write_recipes
+)
 
 
 def test_load_file(capsys):
@@ -40,3 +42,12 @@ def test_markdown_recipe_markdown():
     xml_recipe.name = 'Foobar'
     recipe = MarkdownRecipe(xml_recipe)
     assert recipe.markdown == 'Foobar\n======'
+
+
+def test_write_recipes(md_recipes, tmpdir):
+    """Test write_recipes function."""
+    write_recipes(md_recipes, str(tmpdir))
+
+    for recipe in md_recipes:
+        path = tmpdir.join(recipe.filename)
+        assert path.read() == recipe.markdown
