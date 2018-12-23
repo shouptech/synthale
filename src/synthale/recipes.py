@@ -2,6 +2,7 @@
 
 import os
 import re
+import sys
 
 import pybeerxml
 
@@ -42,12 +43,12 @@ def load_file(path):
     """Parse BeerXML file located at `path`.
 
     Return a list of MarkdownRecipe objects. If an exception is raised during
-    parsing, the message is printed to stdout and an empty list is returned.
+    parsing, the message is printed to stderr and an empty list is returned.
     """
     try:
         result = pybeerxml.Parser().parse(path)
     except Exception as err:
-        print(err)
+        print('Error parsing {}: {}'.format(path, err), file=sys.stderr)
         return []
 
     recipes = []

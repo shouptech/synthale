@@ -5,13 +5,16 @@ import pybeerxml
 from synthale.recipes import MarkdownRecipe, load_file, load_all_files
 
 
-def test_load_file():
+def test_load_file(capsys):
     """Load the sample XML file and ensure the name is parsed."""
     result = load_file('tests/recipes/weizen.xml')
     assert result[0].recipe.name == 'Weizen'
 
     result = load_file('tests/recipes/bad-file')
+    captured = capsys.readouterr()
     assert result == []
+    assert captured.err == ('Error parsing tests/recipes/bad-file: '
+                            'syntax error: line 1, column 0\n')
 
 
 def test_load_all_files():
