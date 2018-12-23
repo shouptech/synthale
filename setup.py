@@ -24,7 +24,7 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        synthale=synthale.cli:cli
+        synthale=synthale.cli:main
     ''',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
