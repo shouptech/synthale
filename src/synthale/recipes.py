@@ -6,18 +6,22 @@ import sys
 
 import pybeerxml
 
-from synthale import markdown
+from synthale import markdown, convert
 
 
 class MarkdownRecipe:
     """A recipe in markdown form."""
 
-    def __init__(self, recipe):
+    def __init__(self, recipe, vol_unit='gallons'):
         """Create a MarkdownRecipe object.
 
         `recipe` is a recipe object from the pybeerxml package.
+
+        `vol_unit` specifies the unit for boil size and batch size. Can be one
+        of 'gallons', or 'liters'.
         """
         self.recipe = recipe
+        self.vol_unit = vol_unit
 
     @property
     def filename(self):
@@ -43,6 +47,8 @@ class MarkdownRecipe:
             '',
             self.style,
             '',
+            self.details,
+            '',
         ))
 
     @property
@@ -62,6 +68,37 @@ class MarkdownRecipe:
                               self.recipe.style.style_letter),
             '{}: {}'.format(markdown.strong('Style name'),
                             self.recipe.style.name)
+        ))
+
+    @property
+    def details(self):
+        """Return markdown for the recipe's details."""
+        if self.vol_unit == 'gallons':
+            boil_size = convert.gallons(self.recipe.boil_size, '.1f')
+            batch_size = convert.gallons(self.recipe.batch_size, '.1f')
+        else:
+            boil_size = convert.liters(self.recipe.boil_size, '.1f')
+            batch_size = convert.liters(self.recipe.batch_size, '.1f')
+
+        return '\n'.join((
+            markdown.setext_heading('Details', 2),
+            '{}: {}'.format(markdown.strong('Type'), self.recipe.type),
+            '{}: {:.1f} %'.format(markdown.strong('Batch efficiency'),
+                                  self.recipe.efficiency),
+            '{}: {}'.format(markdown.strong('Boil size'), boil_size),
+            '{}: {} min'.format(markdown.strong('Boil length'),
+                                int(self.recipe.boil_time)),
+            '{}: {}'.format(markdown.strong('Batch size'), batch_size),
+            '{}: {:.3f}'.format(markdown.strong('Estimated OG'),
+                                self.recipe.og),
+            '{}: {:.3f}'.format(markdown.strong('Estimated FG'),
+                                self.recipe.fg),
+            '{}: {}'.format(markdown.strong('Estimated IBU'),
+                            int(self.recipe.ibu)),
+            '{}: {}'.format(markdown.strong('Estimated SRM'),
+                            'not implemented'),
+            '{}: {:.1f}'.format(markdown.strong('Estimated ABV'),
+                                self.recipe.abv)
         ))
 
 
