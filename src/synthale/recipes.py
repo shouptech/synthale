@@ -95,9 +95,9 @@ class MarkdownRecipe:
                                 self.recipe.fg),
             '{}: {}'.format(markdown.strong('Estimated IBU'),
                             int(self.recipe.ibu)),
-            '{}: {}'.format(markdown.strong('Estimated SRM'),
-                            'not implemented'),
-            '{}: {:.1f}'.format(markdown.strong('Estimated ABV'),
+            '{}: {:.1f}'.format(markdown.strong('Estimated SRM'),
+                            self.recipe.color),
+            '{}: {:.1f} %'.format(markdown.strong('Estimated ABV'),
                                 self.recipe.abv)
         ))
 

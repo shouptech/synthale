@@ -76,8 +76,8 @@ def test_recipe_details(md_weizen):
         '**Estimated OG**: 1.051\n'
         '**Estimated FG**: 1.015\n'
         '**Estimated IBU**: 15\n'
-        '**Estimated SRM**: not implemented\n'
-        '**Estimated ABV**: 4.7'
+        '**Estimated SRM**: 3.0\n'
+        '**Estimated ABV**: 4.7 %'
     )
 
     md_weizen.vol_unit = 'liters'
