@@ -56,8 +56,8 @@ def test_markdown_recipe_style():
     assert recipe.style == (
         'Style\n'
         '-----\n'
-        '**Style guide**: BJCP\n'
-        '**Style category**: 13E\n'
+        '**Style guide**: BJCP\\\n'
+        '**Style category**: 13E\\\n'
         '**Style name**: American Stout'
     )
 
@@ -68,15 +68,15 @@ def test_recipe_details(md_weizen):
     assert md_weizen.details == (
         'Details\n'
         '-------\n'
-        '**Type**: All Grain\n'
-        '**Batch efficiency**: 72.0 %\n'
-        '**Boil size**: 6.3 gal\n'
-        '**Boil length**: 60 min\n'
-        '**Batch size**: 5.5 gal\n'
-        '**Estimated OG**: 1.051\n'
-        '**Estimated FG**: 1.015\n'
-        '**Estimated IBU**: 15\n'
-        '**Estimated SRM**: 3.0\n'
+        '**Type**: All Grain\\\n'
+        '**Batch efficiency**: 72.0 %\\\n'
+        '**Boil size**: 6.3 gal\\\n'
+        '**Boil length**: 60 min\\\n'
+        '**Batch size**: 5.5 gal\\\n'
+        '**Estimated OG**: 1.051\\\n'
+        '**Estimated FG**: 1.015\\\n'
+        '**Estimated IBU**: 15\\\n'
+        '**Estimated SRM**: 3.0\\\n'
         '**Estimated ABV**: 4.7 %'
     )
 

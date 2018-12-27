@@ -66,8 +66,8 @@ class MarkdownRecipe:
     @property
     def style(self):
         """Return markdown for the recipe's style."""
-        return '\n'.join((
-            markdown.setext_heading('Style', 2),
+        heading = markdown.setext_heading('Style', 2) + '\n'
+        return heading + '\\\n'.join((
             '{}: {}'.format(markdown.strong('Style guide'),
                             self.recipe.style.style_guide),
             '{}: {}{}'.format(markdown.strong('Style category'),
@@ -87,8 +87,9 @@ class MarkdownRecipe:
             boil_size = convert.liters(self.recipe.boil_size, '.1f')
             batch_size = convert.liters(self.recipe.batch_size, '.1f')
 
-        return '\n'.join((
-            markdown.setext_heading('Details', 2),
+        heading = markdown.setext_heading('Details', 2) + '\n'
+
+        return heading + '\\\n'.join((
             '{}: {}'.format(markdown.strong('Type'), self.recipe.type),
             '{}: {:.1f} %'.format(markdown.strong('Batch efficiency'),
                                   self.recipe.efficiency),
