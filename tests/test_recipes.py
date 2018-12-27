@@ -85,6 +85,28 @@ def test_recipe_details(md_weizen):
     assert '**Batch size**: 20.8 L' in md_weizen.details
 
 
+def test_recipe_hops(md_weizen):
+    """Test valid hop table is generated."""
+    md_weizen.hop_unit = 'ounces'
+    assert md_weizen.hops == (
+        'Hops\n'
+        '----\n'
+        '| Name                 | Origin  | Alpha | Amount | Time | Use  |\n'
+        '| -------------------- | ------- | ----- | ------ | ---- | ---- |\n'
+        '| Northern Brewer (DE) | Germany | 4.9 % | 1.0 oz | 60   | Boil |'
+
+    )
+
+    md_weizen.hop_unit = 'pounds'
+    assert '| 0.06 lb |' in md_weizen.hops
+
+    md_weizen.hop_unit = 'kilograms'
+    assert '| 0.03 kg |' in md_weizen.hops
+
+    md_weizen.hop_unit = 'grams'
+    assert '| 28.3 g |' in md_weizen.hops
+
+
 def test_write_recipes(md_recipes, tmpdir):
     """Test write_recipes function."""
     write_recipes(md_recipes, str(tmpdir))

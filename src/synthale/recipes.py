@@ -12,16 +12,21 @@ from synthale import markdown, convert
 class MarkdownRecipe:
     """A recipe in markdown form."""
 
-    def __init__(self, recipe, vol_unit='gallons'):
+    def __init__(self, recipe, vol_unit='gallons', hop_unit='ounces'):
         """Create a MarkdownRecipe object.
 
         `recipe` is a recipe object from the pybeerxml package.
 
         `vol_unit` specifies the unit for boil size and batch size. Can be one
         of 'gallons', or 'liters'.
+
+        `hop_unit` specifies the unit for hop amounts. Can be one of
+        'ounces', 'pounds', 'grams', or 'kilograms'. If specified unit is not
+        matched, default is 'ounces'.
         """
         self.recipe = recipe
         self.vol_unit = vol_unit
+        self.hop_unit = hop_unit
 
     @property
     def filename(self):
@@ -48,6 +53,8 @@ class MarkdownRecipe:
             self.style,
             '',
             self.details,
+            '',
+            self.hops,
             '',
         ))
 
@@ -100,6 +107,35 @@ class MarkdownRecipe:
             '{}: {:.1f} %'.format(markdown.strong('Estimated ABV'),
                                   self.recipe.abv)
         ))
+
+    @property
+    def hops(self):
+        """Return markdown to represent the recipe's hops."""
+        headers = ('Name', 'Origin', 'Alpha', 'Amount', 'Time', 'Use')
+        rows = []
+        for hop in self.recipe.hops:
+            if self.hop_unit == 'pounds':
+                amt = convert.pounds(hop.amount, '.2f')
+            elif self.hop_unit == 'grams':
+                amt = convert.grams(hop.amount, '.1f')
+            elif self.hop_unit == 'kilograms':
+                amt = convert.kilograms(hop.amount, '.2f')
+            else:
+                amt = convert.ounces(hop.amount, '.1f')
+            rows.append((
+                hop.name,
+                hop.origin,
+                '{:.1f} %'.format(hop.alpha),
+                amt,
+                '{}'.format(int(round(hop.time))),
+                hop.use,
+            ))
+        return (
+            '{}\n{}'.format(
+                markdown.setext_heading('Hops', level=2),
+                markdown.table(headers, rows)
+            )
+        )
 
 
 def load_file(path):
