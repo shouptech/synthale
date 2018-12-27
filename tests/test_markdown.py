@@ -42,10 +42,10 @@ def test_strong():
             ('testing',),
             ('testin|g',),
         ),
-        ('| pipe\|test |\n'
+        ('| pipe\\|test |\n'
          '| ---------- |\n'
          '| testing    |\n'
-         '| testin\|g  |')
+         '| testin\\|g  |')
     )
 ))
 def test_table(headers, rows, expected):
