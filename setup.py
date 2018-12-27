@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 install_requires = [
     'Click',
-    'pybeerxml',
+    'pybeerxml>=1.0.6',
 ]
 
 setup(
