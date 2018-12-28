@@ -85,6 +85,28 @@ def test_recipe_details(md_weizen):
     assert '**Batch size**: 20.8 L' in md_weizen.details
 
 
+def test_recipe_fermentables(md_weizen):
+    """Test valid fermentable table is generated."""
+    md_weizen.fermentable_unit = 'pounds'
+    assert md_weizen.fermentables == (
+        'Fermentables\n'
+        '------------\n'
+        '| Name            | Type      | Color  | Amount  |\n'
+        '| --------------- | --------- | ------ | ------- |\n'
+        '| Pilsner (DE)    | Base Malt | 1.0 °L | 5.00 lb |\n'
+        '| Wheat Malt (DE) | Adjunct   | 2.0 °L | 5.00 lb |'
+    )
+
+    md_weizen.fermentable_unit = 'ounces'
+    assert '| 80.0 oz |' in md_weizen.fermentables
+
+    md_weizen.fermentable_unit = 'grams'
+    assert '| 2268.0 g |' in md_weizen.fermentables
+
+    md_weizen.fermentable_unit = 'kilograms'
+    assert '| 2.27 kg |' in md_weizen.fermentables
+
+
 def test_recipe_hops(md_weizen):
     """Test valid hop table is generated."""
     md_weizen.hop_unit = 'ounces'

@@ -12,7 +12,11 @@ from synthale import markdown, convert
 class MarkdownRecipe:
     """A recipe in markdown form."""
 
-    def __init__(self, recipe, vol_unit='gallons', hop_unit='ounces'):
+    def __init__(self,
+                 recipe,
+                 vol_unit='gallons',
+                 hop_unit='ounces',
+                 fermentable_unit='pounds'):
         """Create a MarkdownRecipe object.
 
         `recipe` is a recipe object from the pybeerxml package.
@@ -23,10 +27,15 @@ class MarkdownRecipe:
         `hop_unit` specifies the unit for hop amounts. Can be one of
         'ounces', 'pounds', 'grams', or 'kilograms'. If specified unit is not
         matched, default is 'ounces'.
+
+        `fermentable_unit` specifies the unit for fermentable amounts. Can be
+        one of 'ounces', 'pounds', 'grams', or 'kilograms'. If specified unit
+        is not matched, default is 'pounds'.
         """
         self.recipe = recipe
         self.vol_unit = vol_unit
         self.hop_unit = hop_unit
+        self.fermentable_unit = fermentable_unit
 
     @property
     def filename(self):
@@ -53,6 +62,8 @@ class MarkdownRecipe:
             self.style,
             '',
             self.details,
+            '',
+            self.fermentables,
             '',
             self.hops,
             '',
@@ -108,6 +119,33 @@ class MarkdownRecipe:
             '{}: {:.1f} %'.format(markdown.strong('Estimated ABV'),
                                   self.recipe.abv)
         ))
+
+    @property
+    def fermentables(self):
+        """Return markdown to represent the recipe's fermentables."""
+        headers = ('Name', 'Type', 'Color', 'Amount')
+        rows = []
+        for fermentable in self.recipe.fermentables:
+            if self.fermentable_unit == 'ounces':
+                amt = convert.ounces(fermentable.amount, '.1f')
+            elif self.fermentable_unit == 'grams':
+                amt = convert.grams(fermentable.amount, '.1f')
+            elif self.fermentable_unit == 'kilograms':
+                amt = convert.kilograms(fermentable.amount, '.2f')
+            else:
+                amt = convert.pounds(fermentable.amount, '.2f')
+            rows.append((
+                fermentable.name,
+                fermentable.type,
+                '{:.1f} °L'.format(fermentable.color),
+                amt
+            ))
+        return (
+            '{}\n{}'.format(
+                markdown.setext_heading('Fermentables', level=2),
+                markdown.table(headers, rows)
+            )
+        )
 
     @property
     def hops(self):
