@@ -129,6 +129,17 @@ def test_recipe_hops(md_weizen):
     assert '| 28.3 g |' in md_weizen.hops
 
 
+def test_recipe_yeast(md_weizen):
+    """Test valid yeast table is generated."""
+    assert md_weizen.yeast == (
+        'Yeast\n'
+        '-----\n'
+        '| Name          | Lab       | Type | Attenuation |\n'
+        '| ------------- | --------- | ---- | ----------- |\n'
+        '| Safbrew WB-06 | Fermentis | Ale  | 70.0 %      |'
+    )
+
+
 def test_write_recipes(md_recipes, tmpdir):
     """Test write_recipes function."""
     write_recipes(md_recipes, str(tmpdir))

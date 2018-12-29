@@ -67,6 +67,8 @@ class MarkdownRecipe:
             '',
             self.hops,
             '',
+            self.yeast,
+            '',
         ))
 
     @property
@@ -172,6 +174,25 @@ class MarkdownRecipe:
         return (
             '{}\n{}'.format(
                 markdown.setext_heading('Hops', level=2),
+                markdown.table(headers, rows)
+            )
+        )
+
+    @property
+    def yeast(self):
+        """Return markdown to represent the recipe's yeast."""
+        headers = ('Name', 'Lab', 'Type', 'Attenuation')
+        rows = []
+        for yeast in self.recipe.yeasts:
+            rows.append((
+                yeast.name,
+                yeast.laboratory,
+                yeast.type,
+                '{:.1f} %'.format(yeast.attenuation),
+            ))
+        return (
+            '{}\n{}'.format(
+                markdown.setext_heading('Yeast', level=2),
                 markdown.table(headers, rows)
             )
         )
