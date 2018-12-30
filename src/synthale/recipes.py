@@ -69,6 +69,8 @@ class MarkdownRecipe:
             '',
             self.yeast,
             '',
+            self.miscs,
+            '',
         ))
 
     @property
@@ -193,6 +195,30 @@ class MarkdownRecipe:
         return (
             '{}\n{}'.format(
                 markdown.setext_heading('Yeast', level=2),
+                markdown.table(headers, rows)
+            )
+        )
+
+    @property
+    def miscs(self):
+        """Return the markdown to represent the recipe's other ingredients."""
+        headers = ('Name', 'Use', 'Amount')
+        rows = []
+        for misc in self.recipe.miscs:
+            if misc.display_amount is not None:
+                amt = str(misc.display_amount)
+            elif misc.amount_is_weight:
+                amt = '{:.2f} kg'.format(misc.amount)
+            else:
+                amt = '{:.2f} L'.format(misc.amount)
+            rows.append((
+                misc.name,
+                misc.use,
+                amt
+            ))
+        return (
+            '{}\n{}'.format(
+                markdown.setext_heading('Other Ingredients', level=2),
                 markdown.table(headers, rows)
             )
         )

@@ -28,3 +28,11 @@ def md_weizen():
     return MarkdownRecipe(
         pybeerxml.Parser().parse('tests/recipes/weizen.xml')[0]
     )
+
+
+@pytest.fixture
+def md_coffee_stout():
+    """Return the sample coffee stout recipe as a MarkdownRecipe object."""
+    return MarkdownRecipe(
+        pybeerxml.Parser().parse('tests/recipes/coffee-stout.xml')[0]
+    )

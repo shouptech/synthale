@@ -140,6 +140,35 @@ def test_recipe_yeast(md_weizen):
     )
 
 
+def test_recipe_miscs(md_coffee_stout):
+    """Test valid miscellaneous ingredient table is generated."""
+    assert md_coffee_stout.miscs == (
+        'Other Ingredients\n'
+        '-----------------\n'
+        '| Name            | Use | Amount   |\n'
+        '| --------------- | --- | -------- |\n'
+        '| Coffee (Brewed) | Keg | 24.0 oz. |'
+    )
+
+    md_coffee_stout.recipe.miscs[0].display_amount = None
+    assert md_coffee_stout.miscs == (
+        'Other Ingredients\n'
+        '-----------------\n'
+        '| Name            | Use | Amount |\n'
+        '| --------------- | --- | ------ |\n'
+        '| Coffee (Brewed) | Keg | 0.71 L |'
+    )
+
+    md_coffee_stout.recipe.miscs[0].amount_is_weight = True
+    assert md_coffee_stout.miscs == (
+        'Other Ingredients\n'
+        '-----------------\n'
+        '| Name            | Use | Amount  |\n'
+        '| --------------- | --- | ------- |\n'
+        '| Coffee (Brewed) | Keg | 0.71 kg |'
+    )
+
+
 def test_write_recipes(md_recipes, tmpdir):
     """Test write_recipes function."""
     write_recipes(md_recipes, str(tmpdir))

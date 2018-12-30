@@ -157,10 +157,10 @@
         <NAME>Coffee (Brewed)</NAME>
         <USE>Keg</USE>
         <TIME>1.0</TIME>
-        <AMOUNT>24.0</AMOUNT>
+        <AMOUNT>0.709765</AMOUNT>
         <AMOUNT_IS_WEIGHT>false</AMOUNT_IS_WEIGHT>
         <NOTES></NOTES>
-        <DISPLAY_AMOUNT>24.0 </DISPLAY_AMOUNT>
+        <DISPLAY_AMOUNT>24.0 oz.</DISPLAY_AMOUNT>
         <DISPLAY_TIME>1.0 </DISPLAY_TIME>
       </MISC>
     </MISCS>
