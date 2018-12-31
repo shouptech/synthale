@@ -64,3 +64,23 @@ def pounds(kilograms, format_spec=''):
     for how to write `format_spec`.
     """
     return ('{:' + format_spec + '} lb').format(kilograms * 2.204623)
+
+
+def celsius(celsius, format_spec=''):
+    """Return a string with the unit appended.
+
+    See  the `Format Specification Mini-Language
+    <https://docs.python.org/3/library/string.html#format-specification-mini-language>_`
+    for how to write `format_spec`.
+    """
+    return ('{:' + format_spec + '} °C').format(celsius)
+
+
+def fahrenheit(celsius, format_spec=''):
+    """Convert celsius to fahrenheit and return a string with the unit appended.
+
+    See  the `Format Specification Mini-Language
+    <https://docs.python.org/3/library/string.html#format-specification-mini-language>_`
+    for how to write `format_spec`.
+    """
+    return ('{:' + format_spec + '} °F').format(celsius * 1.8 + 32)
