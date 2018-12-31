@@ -27,7 +27,7 @@ setup(
         synthale=synthale.cli:main
     ''',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Natural Language :: English',

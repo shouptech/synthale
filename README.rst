@@ -1,3 +1,10 @@
+.. image:: https://circleci.com/gh/shouptech/synthale.svg?style=shield
+  :target: https://circleci.com/gh/shouptech/synthale
+
+.. image:: https://codecov.io/gh/shouptech/synthale/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/shouptech/synthale
+
+
 Synthale
 ========
 
@@ -14,7 +21,7 @@ Synthale requires Python 3. Install Synthale from PyPi:
 
 ::
 
-    pip3 install synthale
+  pip3 install synthale
 
 
 
@@ -23,16 +30,16 @@ Usage
 
 ::
 
-    $ synthale --help
-    Usage: synthale [OPTIONS] INPUT_PATH OUTPUT_PATH
+  $ synthale --help
+  Usage: synthale [OPTIONS] INPUT_PATH OUTPUT_PATH
 
-    Generate markdown files from BeerXML files.
+  Generate markdown files from BeerXML files.
 
-    INPUT_PATH is either a directory containing XML files, or an individual
-    XML file. OUTPUT_PATH is the directory to write the markdown files to.
+  INPUT_PATH is either a directory containing XML files, or an individual
+  XML file. OUTPUT_PATH is the directory to write the markdown files to.
 
-    Options:
-    --help  Show this message and exit.
+  Options:
+  --help  Show this message and exit.
 
 
 
