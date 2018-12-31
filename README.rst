@@ -20,18 +20,19 @@ pip3 install Synthale
 Usage
 -----
 
-```
-$ synthale --help
-Usage: synthale [OPTIONS] INPUT_PATH OUTPUT_PATH
+::
 
-  Generate markdown files from BeerXML files.
+    $ synthale --help
+    Usage: synthale [OPTIONS] INPUT_PATH OUTPUT_PATH
 
-  INPUT_PATH is either a directory containing XML files, or an individual
-  XML file. OUTPUT_PATH is the directory to write the markdown files to.
+    Generate markdown files from BeerXML files.
 
-Options:
-  --help  Show this message and exit.
-```
+    INPUT_PATH is either a directory containing XML files, or an individual
+    XML file. OUTPUT_PATH is the directory to write the markdown files to.
+
+    Options:
+    --help  Show this message and exit.
+
 
 
 License
