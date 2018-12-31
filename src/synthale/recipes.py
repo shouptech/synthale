@@ -16,13 +16,15 @@ class MarkdownRecipe:
                  recipe,
                  vol_unit='gallons',
                  hop_unit='ounces',
-                 fermentable_unit='pounds'):
+                 fermentable_unit='pounds',
+                 temp_unit='fahrenheit'):
         """Create a MarkdownRecipe object.
 
         `recipe` is a recipe object from the pybeerxml package.
 
         `vol_unit` specifies the unit for boil size and batch size. Can be one
-        of 'gallons', or 'liters'.
+        of 'gallons', or 'liters'. If specified unit is not matched, default is
+        'liters'.
 
         `hop_unit` specifies the unit for hop amounts. Can be one of
         'ounces', 'pounds', 'grams', or 'kilograms'. If specified unit is not
@@ -31,11 +33,16 @@ class MarkdownRecipe:
         `fermentable_unit` specifies the unit for fermentable amounts. Can be
         one of 'ounces', 'pounds', 'grams', or 'kilograms'. If specified unit
         is not matched, default is 'pounds'.
+
+        `temp_unit` specifies the unit for temperatures. Can be one of
+        'fahrenheit' or 'celsius'. If specified unit is not matched, default is
+        'fahrenheit'.
         """
         self.recipe = recipe
         self.vol_unit = vol_unit
         self.hop_unit = hop_unit
         self.fermentable_unit = fermentable_unit
+        self.temp_unit = temp_unit
 
     @property
     def filename(self):
@@ -70,6 +77,8 @@ class MarkdownRecipe:
             self.yeast,
             '',
             self.miscs,
+            '',
+            self.mash,
             '',
         ))
 
@@ -219,6 +228,34 @@ class MarkdownRecipe:
         return (
             '{}\n{}'.format(
                 markdown.setext_heading('Other Ingredients', level=2),
+                markdown.table(headers, rows)
+            )
+        )
+
+    @property
+    def mash(self):
+        """Return the markdown to represent the recipe's mash steps."""
+        headers = ('Name', 'Type', 'Temperature', 'Time', 'Amount')
+        rows = []
+        for step in self.recipe.mash.steps:
+            if self.temp_unit == 'celsius':
+                temp = convert.celsius(step.step_temp, '.1f')
+            else:
+                temp = convert.fahrenheit(step.step_temp, '.1f')
+            if self.vol_unit == 'gallons':
+                amt = convert.gallons(step.infuse_amount, '.1f')
+            else:
+                amt = convert.liters(step.infuse_amount, '.1f')
+            rows.append((
+                step.name,
+                step.type,
+                temp,
+                '{} min'.format(int(step.step_time)),
+                amt
+            ))
+        return (
+            '{}\n{}'.format(
+                markdown.setext_heading('Mash', level=2),
                 markdown.table(headers, rows)
             )
         )

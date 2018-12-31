@@ -169,6 +169,17 @@ def test_recipe_miscs(md_coffee_stout):
     )
 
 
+def test_recipe_mash(md_coffee_stout):
+    """Test valid recipe mash table."""
+    assert md_coffee_stout.mash == (
+        'Mash\n'
+        '----\n'
+        '| Name     | Type     | Temperature | Time   | Amount   |\n'
+        '| -------- | -------- | ----------- | ------ | -------- |\n'
+        '| Infusion | Infusion | 152.0 °F    | 60 min | 37.55 lb |'
+    )
+
+
 def test_write_recipes(md_recipes, tmpdir):
     """Test write_recipes function."""
     write_recipes(md_recipes, str(tmpdir))
