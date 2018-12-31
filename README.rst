@@ -24,7 +24,6 @@ Synthale requires Python 3. Install Synthale from PyPi:
   pip3 install synthale
 
 
-
 Usage
 -----
 
@@ -40,7 +39,6 @@ Usage
 
   Options:
   --help  Show this message and exit.
-
 
 
 License
