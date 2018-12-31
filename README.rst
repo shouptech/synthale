@@ -12,9 +12,10 @@ Installation
 
 Synthale requires Python 3. Install Synthale from PyPi:
 
-```
-pip3 install Synthale
-```
+::
+
+    pip3 install synthale
+
 
 
 Usage
