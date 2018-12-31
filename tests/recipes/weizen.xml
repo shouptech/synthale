@@ -87,21 +87,6 @@
       </YEAST>
     </YEASTS>
     <MISCS/>
-    <MASH>
-      <NAME>Single Step Infusion, 148 F</NAME>
-      <VERSION>1</VERSION>
-      <GRAIN_TEMP>22.0</GRAIN_TEMP>
-      <MASH_STEPS>
-        <MASH_STEP>
-          <NAME>Infusion</NAME>
-          <VERSION>1</VERSION>
-          <TYPE>Infusion</TYPE>
-          <STEP_TEMP>64.4444</STEP_TEMP>
-          <STEP_TIME>60.0</STEP_TIME>
-          <INFUSE_AMOUNT>17.0344</INFUSE_AMOUNT>
-        </MASH_STEP>
-      </MASH_STEPS>
-    </MASH>
     <TYPE>All Grain</TYPE>
     <BREWER>Mike Shoup</BREWER>
     <BATCH_SIZE>20.81976479</BATCH_SIZE>

@@ -140,7 +140,7 @@ def test_recipe_yeast(md_weizen):
     )
 
 
-def test_recipe_miscs(md_coffee_stout):
+def test_recipe_miscs(md_coffee_stout, md_weizen):
     """Test valid miscellaneous ingredient table is generated."""
     assert md_coffee_stout.miscs == (
         'Other Ingredients\n'
@@ -168,16 +168,38 @@ def test_recipe_miscs(md_coffee_stout):
         '| Coffee (Brewed) | Keg | 0.71 kg |'
     )
 
+    assert md_weizen.miscs == ''
 
-def test_recipe_mash(md_coffee_stout):
+
+def test_recipe_mash(md_coffee_stout, md_weizen):
     """Test valid recipe mash table."""
     assert md_coffee_stout.mash == (
         'Mash\n'
         '----\n'
-        '| Name     | Type     | Temperature | Time   | Amount   |\n'
-        '| -------- | -------- | ----------- | ------ | -------- |\n'
-        '| Infusion | Infusion | 152.0 °F    | 60 min | 37.55 lb |'
+        '| Name     | Type     | Temperature | Time   | Amount  |\n'
+        '| -------- | -------- | ----------- | ------ | ------- |\n'
+        '| Infusion | Infusion | 152.0 °F    | 60 min | 4.5 gal |'
     )
+
+    md_coffee_stout.temp_unit = 'celsius'
+    assert md_coffee_stout.mash == (
+        'Mash\n'
+        '----\n'
+        '| Name     | Type     | Temperature | Time   | Amount  |\n'
+        '| -------- | -------- | ----------- | ------ | ------- |\n'
+        '| Infusion | Infusion | 66.7 °C     | 60 min | 4.5 gal |'
+    )
+
+    md_coffee_stout.vol_unit = 'liters'
+    assert md_coffee_stout.mash == (
+        'Mash\n'
+        '----\n'
+        '| Name     | Type     | Temperature | Time   | Amount |\n'
+        '| -------- | -------- | ----------- | ------ | ------ |\n'
+        '| Infusion | Infusion | 66.7 °C     | 60 min | 17.0 L |'
+    )
+
+    assert md_weizen.mash == ''
 
 
 def test_write_recipes(md_recipes, tmpdir):

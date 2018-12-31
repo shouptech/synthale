@@ -63,7 +63,7 @@ class MarkdownRecipe:
     @property
     def markdown(self):
         """Return generated markdown for the recipe."""
-        return '\n'.join((
+        md = '\n'.join((
             self.name,
             '',
             self.style,
@@ -76,11 +76,15 @@ class MarkdownRecipe:
             '',
             self.yeast,
             '',
-            self.miscs,
-            '',
-            self.mash,
-            '',
         ))
+
+        if len(self.miscs) > 0:
+            md += '\n'.join(('', self.miscs, '',))
+
+        if len(self.mash) > 0:
+            md += '\n'.join(('', self.mash, '',))
+
+        return md
 
     @property
     def name(self):
@@ -211,6 +215,9 @@ class MarkdownRecipe:
     @property
     def miscs(self):
         """Return the markdown to represent the recipe's other ingredients."""
+        if len(self.recipe.miscs) == 0:
+            return ''
+
         headers = ('Name', 'Use', 'Amount')
         rows = []
         for misc in self.recipe.miscs:
@@ -235,6 +242,9 @@ class MarkdownRecipe:
     @property
     def mash(self):
         """Return the markdown to represent the recipe's mash steps."""
+        if self.recipe.mash is None:
+            return ''
+
         headers = ('Name', 'Type', 'Temperature', 'Time', 'Amount')
         rows = []
         for step in self.recipe.mash.steps:
