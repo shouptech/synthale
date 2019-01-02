@@ -99,13 +99,28 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-py35
-      - test-py36
-      - test-py37
+      - test-py35:
+          filters:
+            tags:
+              only: /.*/
+      - test-py36:
+          filters:
+            tags:
+              only: /.*/
+      - test-py37:
+          filters:
+            tags:
+              only: /.*/
       - codecov:
           requires:
             - test-py37
-      - style
+          filters:
+            tags:
+              only: /.*/
+      - style:
+          filters:
+            tags:
+              only: /.*/
       - pypi:
           requires:
             - test-py35
