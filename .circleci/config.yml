@@ -74,7 +74,7 @@ jobs:
             pip install flake8 flake8-docstrings
             flake8
 
-  pypi:
+  release:
     docker:
       - image: python:3
     steps:
@@ -97,7 +97,7 @@ jobs:
 
 workflows:
   version: 2
-  test:
+  test_and_release:
     jobs:
       - test-py35:
           filters:
@@ -121,7 +121,7 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - pypi:
+      - release:
           requires:
             - test-py35
             - test-py36
