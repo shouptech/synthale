@@ -28,7 +28,7 @@ install_requires = [
 
 setup(
     name='synthale',
-    version='0.0.2',
+    version='0.0.3',
     url='https://github.com/shouptech/synthale',
     author='Mike Shoup',
     author_email='mike@shoup.io',
