@@ -74,6 +74,26 @@ jobs:
             pip install flake8 flake8-docstrings
             flake8
 
+  pypi:
+    docker:
+      - image: python:3
+    steps:
+      - checkout
+
+      - run:
+          name: Install twine
+          command: |
+            pip install twine
+
+      - run:
+          name: Build package
+          command: |
+            python setup.py sdist bdist_wheel
+
+      - run:
+          name: Upload to PyPi
+          command: |
+            twine upload dist/*
 
 workflows:
   version: 2
@@ -86,3 +106,14 @@ workflows:
           requires:
             - test-py37
       - style
+      - pypi:
+          requires:
+            - test-py35
+            - test-py36
+            - test-py37
+            - style
+          filters:
+            tags:
+              only: /v.*/
+            branches:
+              ignore: /.*/
