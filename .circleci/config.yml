@@ -114,6 +114,6 @@ workflows:
             - style
           filters:
             tags:
-              only: /v.*/
+              only: /.*/
             branches:
               ignore: /.*/
