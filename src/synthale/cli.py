@@ -15,12 +15,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import platform
+
 import click
 
+from synthale import VERSION
 from synthale.recipes import load_file, load_all_files, write_recipes
 
 
-@click.command()
+@click.group()
+def cli():
+    """Synthale converts BeerXML files to markdown.
+
+    Copyright (C) 2019 Mike Shoup"""
+    pass
+
+
+@cli.command()
+def version():
+    """Print version and exit."""
+    click.echo(
+        'Synthale version: {}\n'
+        'Python version: {}'.format(VERSION, platform.python_version())
+    )
+
+
+@cli.command()
 @click.option(
     '--vol-unit', '-v',
     type=click.Choice(('gallons', 'liters')),
@@ -47,7 +67,7 @@ from synthale.recipes import load_file, load_all_files, write_recipes
 )
 @click.argument('input_path')
 @click.argument('output_path')
-def main(
+def generate(
     input_path,
     output_path,
     vol_unit,

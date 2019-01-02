@@ -39,7 +39,7 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        synthale=synthale.cli:main
+        synthale=synthale.cli:cli
     ''',
     classifiers=[
         'Development Status :: 4 - Beta',

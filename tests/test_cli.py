@@ -15,24 +15,27 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import platform
+
 from click.testing import CliRunner
 import pytest
 
-from synthale.cli import main
+from synthale import VERSION
+from synthale.cli import cli
 
 
-def test_main_help():
-    """Test the help output of the main CLI command."""
+def test_cli_help():
+    """Test the help output of the cli CLI command."""
     runner = CliRunner()
-    result = runner.invoke(main, ['--help'])
+    result = runner.invoke(cli, ['generate', '--help'])
     assert 'INPUT_PATH' in result.output
     assert 'OUTPUT_PATH' in result.output
 
 
-def test_main_directory(tmpdir, md_recipes):
+def test_cli_directory(tmpdir, md_recipes):
     """Test command where input is a directory."""
     runner = CliRunner()
-    result = runner.invoke(main, ['tests/recipes', str(tmpdir)])
+    result = runner.invoke(cli, ['generate', 'tests/recipes', str(tmpdir)])
 
     assert result.exit_code == 0
     assert result.output.startswith(
@@ -44,10 +47,14 @@ def test_main_directory(tmpdir, md_recipes):
         assert path.read() == recipe.markdown
 
 
-def test_main_file(tmpdir):
+def test_cli_file(tmpdir):
     """Test command where input is a file."""
     runner = CliRunner()
-    result = runner.invoke(main, ['tests/recipes/weizen.xml', str(tmpdir)])
+    result = runner.invoke(cli, [
+        'generate',
+        'tests/recipes/weizen.xml',
+        str(tmpdir)
+    ])
 
     assert result.exit_code == 0
     assert result.output.startswith(
@@ -72,16 +79,29 @@ def test_main_file(tmpdir):
     ('--temp-unit', 'fahrenheit', '| 152.0 °F    |'),
     ('--temp-unit', 'celsius', '| 66.7 °C     |')
 ))
-def test_main_units(tmpdir, option, flag, expected):
+def test_cli_units(tmpdir, option, flag, expected):
     """Test units options."""
     runner = CliRunner()
-    result = runner.invoke(
-        main, [option, flag, 'tests/recipes/coffee-stout.xml', str(tmpdir)]
-    )
+    result = runner.invoke(cli, [
+        'generate',
+        option,
+        flag,
+        'tests/recipes/coffee-stout.xml',
+        str(tmpdir)
+    ])
 
     assert result.exit_code == 0
 
     path = tmpdir.join('coffee_stout.md')
-    result = path.read()
-    print(result)
-    assert expected in result
+    assert expected in path.read()
+
+
+def test_cli_version():
+    """Test version output."""
+    runner = CliRunner()
+    result = runner.invoke(cli, ['version'])
+    assert result.exit_code == 0
+    assert result.output.startswith(
+        'Synthale version: {}\n'
+        'Python version: {}'.format(VERSION, platform.python_version())
+    )
