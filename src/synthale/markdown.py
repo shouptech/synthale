@@ -49,7 +49,7 @@ def strong(text):
 def table(headers, rows):
     """Generate a table.
 
-    'headers' is a list/tuple of header cells. 'rows' is a list of lists
+    `headers` is a list/tuple of header cells. `rows` is a list of lists
     containing each cell. If any row has more cells than there are headers, the
     extra cells are silently dropped.
 
