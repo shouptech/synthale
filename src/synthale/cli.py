@@ -27,7 +27,8 @@ from synthale.recipes import load_file, load_all_files, write_recipes
 def cli():
     """Synthale converts BeerXML files to markdown.
 
-    Copyright (C) 2019 Mike Shoup"""
+    Copyright (C) 2019 Mike Shoup
+    """
     pass
 
 
