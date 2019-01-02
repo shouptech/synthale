@@ -16,8 +16,17 @@ can then use those Markdown files in your favorite static website generator.
    license
 
 
+Open Source
+-----------
+
+Synthale is free and open source! Get the source code at the
+`GitHub repository`_.
+
+.. _`GitHub repository`: https://github.com/shouptech/synthale
+
+
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

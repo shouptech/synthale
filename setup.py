@@ -13,7 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from os import path
+
 from setuptools import find_packages, setup
+
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.rst'), encoding='utf-8') as f:
+    long_description = f.read()
 
 install_requires = [
     'Click',
@@ -28,6 +34,8 @@ setup(
     author_email='mike@shoup.io',
     description='Synthale is a command line tool that convert BeerXML files '
         'into Markdown files.',
+    long_description=long_description,
+    long_description_content_type='text/x-rst',
     package_dir={'': 'src'},
     packages=find_packages(where='src'),
     install_requires=install_requires,
