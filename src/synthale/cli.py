@@ -21,19 +21,57 @@ from synthale.recipes import load_file, load_all_files, write_recipes
 
 
 @click.command()
+@click.option(
+    '--vol-unit', '-v',
+    type=click.Choice(('gallons', 'liters')),
+    default='gallons',
+    help='Unit to display volumes in. Default is gallons.'
+)
+@click.option(
+    '--hop-unit', '-H',
+    type=click.Choice(('ounces', 'pounds', 'grams', 'kilograms')),
+    default='ounces',
+    help='Unit to display hop masses in. Default is ounces.'
+)
+@click.option(
+    '--fermentable-unit', '-f',
+    type=click.Choice(('ounces', 'pounds', 'grams', 'kilograms')),
+    default='pounds',
+    help='Unit to display fermentable masses in. Default is pounds.'
+)
+@click.option(
+    '--temp-unit', '-f',
+    type=click.Choice(('celsius', 'fahrenheit')),
+    default='fahrenheit',
+    help='Unit to display temperatures in. Default is fahrenheit.'
+)
 @click.argument('input_path')
 @click.argument('output_path')
-def main(input_path, output_path):
+def main(
+    input_path,
+    output_path,
+    vol_unit,
+    hop_unit,
+    fermentable_unit,
+    temp_unit
+):
     """Generate markdown files from BeerXML files.
 
     INPUT_PATH is either a directory containing XML files, or an individual XML
     file. OUTPUT_PATH is the directory to write the markdown files to.
     """
+    units = {
+        'vol_unit': vol_unit,
+        'hop_unit': hop_unit,
+        'fermentable_unit': fermentable_unit,
+        'temp_unit': temp_unit
+    }
+
     click.echo("Generating markdown from '{}'...".format(input_path))
 
     if input_path.endswith('.xml'):
-        recipes = load_file(input_path)
+        recipes = load_file(input_path, units)
     else:
-        recipes = load_all_files(input_path)
+        recipes = load_all_files(input_path, units)
 
     write_recipes(recipes, output_path)

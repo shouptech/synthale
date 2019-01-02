@@ -286,8 +286,12 @@ class MarkdownRecipe:
         )
 
 
-def load_file(path):
-    """Parse BeerXML file located at `path`.
+def load_file(path, units={}):
+    """Parse BeerXML file.
+
+    `path` is the path to a BeerXML file. `units` is a dictionary defining
+    the units used. `units` will be unpacked and used during the creation of a
+    `MarkdownRecipe` object.
 
     Return a list of MarkdownRecipe objects. If an exception is raised during
     parsing, the message is printed to stderr and an empty list is returned.
@@ -300,19 +304,23 @@ def load_file(path):
 
     recipes = []
     for recipe in result:
-        recipes.append(MarkdownRecipe(recipe))
+        recipes.append(MarkdownRecipe(recipe, **units))
     return recipes
 
 
-def load_all_files(path):
-    """Parse all files in `path` that end in `.xml`.
+def load_all_files(path, units={}):
+    """Parse all XML files in a directory.
+
+    `path` is a path to a directory with .xml files. `units` is a dictionary
+    defining the units used. `units` will be unpacked and used during the
+    creation of a `MarkdownRecipe` object.
 
     Returns a list of MarkdownRecipe objects.
     """
     recipes = []
     for name in os.listdir(path):
         if name.endswith('.xml'):
-            recipes.extend(load_file(os.path.join(path, name)))
+            recipes.extend(load_file(os.path.join(path, name), units))
 
     return recipes
 
