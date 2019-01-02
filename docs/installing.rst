@@ -35,9 +35,18 @@ As long as `pip` succesfully installs Synthale, you can simply type the
 ::
 
   $ synthale
-  Usage: synthale [OPTIONS] INPUT_PATH OUTPUT_PATH
-  Try "synthale --help" for help.
+  Usage: synthale [OPTIONS] COMMAND [ARGS]...
 
-  Error: Missing argument "INPUT_PATH".
+    Synthale converts BeerXML files to markdown.
+
+    Copyright (C) 2019 Mike Shoup
+
+  Options:
+    --help  Show this message and exit.
+
+  Commands:
+    generate  Generate markdown files from BeerXML files.
+    version   Print version and exit.
+
 
 Now, move onto :doc:`usage`
