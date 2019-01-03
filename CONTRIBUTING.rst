@@ -114,7 +114,7 @@ it will look better to use double quotes.
 ::
 
   'Just a plain old string.'
-  "You're contribution is going to be awesome."
+  "You're an aweomse contributor."
 
 *Don't do this*:
 
