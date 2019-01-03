@@ -13,6 +13,7 @@ can then use those Markdown files in your favorite static website generator.
    installing
    usage
    modules
+   contributing
    license
 
 
