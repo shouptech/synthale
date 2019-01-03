@@ -118,6 +118,8 @@ it will look better to use double quotes.
 
 *Don't do this*:
 
+::
+
   "Double quotes for plain strings."
   'Single quotes where you\'ll use an apostrophe.'
 
