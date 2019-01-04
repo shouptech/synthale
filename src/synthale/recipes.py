@@ -185,6 +185,7 @@ class MarkdownRecipe:
         headers = ('Name', 'Origin', 'Alpha', 'Amount', 'Time', 'Use')
         rows = []
         for hop in self.recipe.hops:
+            # Determine hop unit
             if self.hop_unit == 'pounds':
                 amt = convert.pounds(hop.amount, '.2f')
             elif self.hop_unit == 'grams':
@@ -193,12 +194,19 @@ class MarkdownRecipe:
                 amt = convert.kilograms(hop.amount, '.2f')
             else:
                 amt = convert.ounces(hop.amount, '.1f')
+
+            # Determine hop timing
+            if hop.use == 'Dry Hop':
+                # 1 day = 1440 minutes
+                time = '{:.1f} days'.format(hop.time / 1440.0)
+            else:
+                time = '{} min'.format(int(round(hop.time)))
             rows.append((
                 hop.name,
                 hop.origin,
                 '{:.1f} %'.format(hop.alpha),
                 amt,
-                '{}'.format(int(round(hop.time))),
+                time,
                 hop.use,
             ))
         return (

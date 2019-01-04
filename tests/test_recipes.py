@@ -128,9 +128,14 @@ def test_recipe_hops(md_weizen):
     assert md_weizen.hops == (
         'Hops\n'
         '----\n'
-        '| Name                 | Origin  | Alpha | Amount | Time | Use  |\n'
-        '| -------------------- | ------- | ----- | ------ | ---- | ---- |\n'
-        '| Northern Brewer (DE) | Germany | 4.9 % | 1.0 oz | 60   | Boil |'
+        '| Name                 | Origin  | Alpha | Amount | Time     |'
+        ' Use     |\n'
+        '| -------------------- | ------- | ----- | ------ | -------- |'
+        ' ------- |\n'
+        '| Northern Brewer (DE) | Germany | 4.9 % | 1.0 oz | 60 min   |'
+        ' Boil    |\n'
+        '| Cascade              | U.S.    | 5.5 % | 0.5 oz | 5.0 days |'
+        ' Dry Hop |'
 
     )
 

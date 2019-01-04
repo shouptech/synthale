@@ -76,6 +76,19 @@
         <DISPLAY_TIME>60.0 min</DISPLAY_TIME>
         <NOTES></NOTES>
       </HOP>
+      <HOP>
+        <NAME>Cascade</NAME>
+        <ORIGIN>U.S.</ORIGIN>
+        <ALPHA>5.5</ALPHA>
+        <BETA></BETA>
+        <AMOUNT>0.0141747</AMOUNT>
+        <DISPLAY_AMOUNT>0.5 oz</DISPLAY_AMOUNT>
+        <USE>Dry Hop</USE>
+        <FORM>Pellet</FORM>
+        <TIME>7200</TIME>
+        <DISPLAY_TIME>5 days</DISPLAY_TIME>
+        <NOTES></NOTES>
+      </HOP>
     </HOPS>
     <YEASTS>
       <YEAST>
